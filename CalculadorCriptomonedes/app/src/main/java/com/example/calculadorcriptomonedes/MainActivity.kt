@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import java.lang.Exception
+import java.util.Arrays
+import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
     private var posicioActual=0;
@@ -28,12 +30,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var btnComa: Button;
     private lateinit var btnCV: Button;
     private lateinit var txtvIntroduit: TextView
+    private lateinit var txtvResultat: TextView
     private lateinit var btnDreta: Button;
     private lateinit var btnEsquerra: Button;
     private lateinit var btnSelect: Button;
 
-    private var arrayCriptos= arrayOf("Criptomonedes","","","")
-
+    private var arrayNomCriptos= arrayOf<String>("Bitcoin","Etherum","Tether","XRP")
+    private var valorsCriptos=arrayOf<Double>(0.0,0.0,0.0,0.0)
+    private var criptoInicialitzada=booleanArrayOf(true,true,true,true)
+    private var bitCoinActual = -1
 
     private var textIntroduit: String="";
     private var comaIntroduida: Boolean = false
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnCE = findViewById(R.id.btnCE)
         btnCV = findViewById(R.id.btnCV)
         txtvIntroduit = findViewById(R.id.txtInsertat)
+        txtvResultat = findViewById(R.id.txtResultat)
         btnDreta = findViewById(R.id.btnDre)
         btnEsquerra = findViewById(R.id.btnEsq)
         btnSelect = findViewById(R.id.selector)
@@ -143,11 +149,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
             }else{
                 if(numDecimals<2){
-                    if(numDecimals<=posicioActual) {
+                    if(numDecimals>=posicioActual) {
                         numDecimals++
+                        textActual=calcularPosicioActual(llarg,valor)
                     }
-                    textActual=calcularPosicioActual(llarg,valor)
-
                 }else{
                     if(posicioActual>numDecimals)  {
                         textActual = calcularPosicioActual(llarg, valor)
@@ -164,6 +169,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         txtvIntroduit.text=textActual
         textIntroduit=textActual
+        modificarResultat()
+
     }
 
     fun calcularPosicioActual(llarg: Int, valor: String): String {
@@ -211,8 +218,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
         }
-        textIntroduit=nouNum
-        txtvIntroduit.text=nouNum
+        if(llarg-1==0){
+            txtvIntroduit.text="0"
+        }else{
+            txtvIntroduit.text=nouNum
+            textIntroduit=nouNum
+        }
+        modificarResultat()
     }
 
     fun moureCursor(endavant: Boolean){
@@ -227,40 +239,61 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    //TODO botons CV i seleccionar (la resta funciona tot)!
+
 
     fun canviarValor(){
-        var valCrip: EditText = EditText(this)
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Canviar valor de la cripto que tens seleccionada actualment")
-            .setCancelable(false)
-            .setMessage("Quants euros equivaldrà 1 cripto?")
-            .setView(valCrip)
-            .setNegativeButton("Deixar com està",null)
-            .setPositiveButton("Actualitzar valor") { dialog, which ->
-                try {
-                    actualitzarValorCripto(valCrip.text.toString().toInt())
-
-                }catch (error: Exception){
-                    (this as MainActivity).supportActionBar?.setTitle("Escriu un valor vàlid")
+        if(bitCoinActual!=-1){
+            var valCrip: EditText = EditText(this)
+            var nouValorStr: String
+            MaterialAlertDialogBuilder(this)
+                .setTitle("@string/cv_title")
+                .setCancelable(false)
+                .setMessage(resources.getString(R.string.cv_qstn))
+                .setView(valCrip)
+                .setNegativeButton(resources.getString(R.string.cv_negative_btn),null) //TODO canviar text per valor de arxiu xml indicat
+                .setPositiveButton(resources.getString(R.string.cv_positive_btn)) { dialog, which ->
+                    try {
+                        nouValorStr=valCrip.text.toString().replace(",",".")
+                        valorsCriptos.set(bitCoinActual,nouValorStr.toDouble())
+                        criptoInicialitzada[bitCoinActual]=false
+                        //Actualtzar el valor
+                        modificarResultat()
+                    }catch (error: Exception){
+                        (this as MainActivity).supportActionBar?.setTitle(resources.getString(R.string.cv_bad_answer))
+                    }
                 }
-            }
-            .show()
+                .show()
+        }else{
+             (this as MainActivity).supportActionBar?.setTitle(resources.getString(R.string.cv_no_cripto_sel))
+        }
     }
-
-
 
     fun seleccionarCripto(){
 
+        var cont=0
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle(resources.getString(R.string.sel_crip_qstn))
+            .setItems(arrayNomCriptos) {dialog, optionSelected ->
+                bitCoinActual=optionSelected
+                if(criptoInicialitzada[optionSelected]){
+                    canviarValor()
+                }
+
+                //this.supportActionBar?.setTitle("Opció seleccionada $optionSelected $itemSelected")
+            }
+            .show()
+        modificarResultat()
     }
 
-   fun actualitzarValorCripto(nouValor: Int){
-
-   }
-
+    fun modificarResultat(){
+        var strVal: String
+        if(bitCoinActual!=-1){
+            strVal=(valorsCriptos.get(bitCoinActual)*textIntroduit.replace(",",".").toDouble()).toString()
+            txtvResultat.text=strVal.replace(".",",")
+        }
+    }
     fun crearCripto() {
-
-
+        //TODO
     }
-
 }

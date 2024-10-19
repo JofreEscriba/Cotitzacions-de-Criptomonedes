@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calculadora cripto</string>
+    <string name="cv_no_cripto_sel">Selecciona una criptomoneda</string>
+    <string name="right_btn">Dreta</string>
+    <string name="left_btn">Esquerra</string>
+    <string name="sel_btn">Selecccionar</string>
+    <string name="cv_btn">C. V.</string>
+    <string name="erase_btn">Borrar</string>
+    <string name="ce_btn">CE</string>
+    <string name="cv_title">Canviar valor de la cripto que tens seleccionada actualment</string>
+    <string name="cv_qstn">Quants euros equivaldrà 1 cripto?</string>
+    <string name="cv_negative_btn">Cancelar</string>
+    <string name="cv_positive_btn">Acceptar</string>
+    <string name="cv_bad_answer">Escriu un valor vàlid</string>
+    <string name="sel_crip_qstn">Amb quina criptomoneda treballaràs?</string>
+
+</resources>

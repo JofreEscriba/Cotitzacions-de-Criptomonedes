@@ -1,3 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CalculadorCriptomonedes</string>
+    <string name="app_name">Cripto calculator</string>
+    <string name="cv_no_cripto_sel">No criptocurrency selected</string>
+    <string name="right_btn">Right</string>
+    <string name="left_btn">Left</string>
+    <string name="sel_btn">Select</string>
+    <string name="cv_btn">C. V.</string>
+    <string name="erase_btn">Erase</string>
+    <string name="ce_btn">CE</string>
+    <string name="cv_title">Change value of selected cryptocurrency</string>
+    <string name="cv_qstn">What is the cryptocurrency value?</string>
+    <string name="cv_negative_btn">Cancel</string>
+    <string name="cv_positive_btn">Done</string>
+    <string name="cv_bad_answer">Write a valid value</string>
+    <string name="sel_crip_qstn">With which of this cryprocurrencies will you work with?</string>
+
 </resources>
