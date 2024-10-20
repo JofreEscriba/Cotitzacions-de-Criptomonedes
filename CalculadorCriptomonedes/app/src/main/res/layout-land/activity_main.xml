@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/appBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
@@ -10,6 +11,7 @@
 
     <TextView
         android:id="@+id/txtInsertat"
+        style="@style/result"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
@@ -22,6 +24,7 @@
 
     <TextView
         android:id="@+id/txtResultat"
+        style="@style/result"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
@@ -34,8 +37,10 @@
 
     <Button
         android:id="@+id/btn7"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="7"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -44,8 +49,10 @@
 
     <Button
         android:id="@+id/btn8"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="8"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -54,8 +61,10 @@
 
     <Button
         android:id="@+id/btn9"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="9"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -64,8 +73,10 @@
 
     <Button
         android:id="@+id/btn4"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="4"
         app:layout_constraintBottom_toTopOf="@+id/guideline40"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -74,8 +85,10 @@
 
     <Button
         android:id="@+id/btn5"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="5"
         app:layout_constraintBottom_toTopOf="@+id/guideline40"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -84,8 +97,10 @@
 
     <Button
         android:id="@+id/btn6"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="6"
         app:layout_constraintBottom_toTopOf="@+id/guideline40"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -94,8 +109,10 @@
 
     <Button
         android:id="@+id/btn1"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="1"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
@@ -104,8 +121,10 @@
 
     <Button
         android:id="@+id/btn2"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="2"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -114,8 +133,10 @@
 
     <Button
         android:id="@+id/btn3"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="3"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
@@ -124,18 +145,22 @@
 
     <Button
         android:id="@+id/btnComa"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text=","
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintEnd_toStartOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline39" />
+        app:layout_constraintTop_toTopOf="@+id/guideline39"
+        android:autoSizeTextType="uniform" />
 
     <Button
         android:id="@+id/btn0"
+        style="@style/numButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeTextType="uniform"
         android:text="0"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -144,9 +169,11 @@
 
     <Button
         android:id="@+id/btnDel"
+        style="@style/actionButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Borrar"
+        android:autoSizeTextType="uniform"
+        android:text="@string/erase_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintStart_toStartOf="@+id/guideline33"
@@ -154,9 +181,11 @@
 
     <Button
         android:id="@+id/btnCV"
+        style="@style/actionButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="C.V."
+        android:autoSizeTextType="uniform"
+        android:text="@string/cv_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline36"
         app:layout_constraintStart_toStartOf="@+id/guideline34"
@@ -164,9 +193,11 @@
 
     <Button
         android:id="@+id/btnDre"
+        style="@style/moveButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Dreta"
+        android:autoSizeTextType="uniform"
+        android:text="@string/right_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
         app:layout_constraintStart_toStartOf="@+id/guideline36"
@@ -174,9 +205,11 @@
 
     <Button
         android:id="@+id/selector"
+        style="@style/actionButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Seleccionar"
+        android:autoSizeTextType="uniform"
+        android:text="@string/sel_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline38"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
         app:layout_constraintStart_toStartOf="@+id/guideline34"
@@ -184,9 +217,11 @@
 
     <Button
         android:id="@+id/btnEsq"
+        style="@style/moveButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Esquerra"
+        android:autoSizeTextType="uniform"
+        android:text="@string/left_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline36"
         app:layout_constraintStart_toStartOf="@+id/guideline34"
@@ -194,9 +229,11 @@
 
     <Button
         android:id="@+id/btnCE"
+        style="@style/actionButtons"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="CE"
+        android:autoSizeTextType="uniform"
+        android:text="@string/ce_btn"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
         app:layout_constraintEnd_toStartOf="@+id/guideline33"
         app:layout_constraintStart_toStartOf="@+id/guideline36"
@@ -268,6 +305,7 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline40"
+        style="@style/moveButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

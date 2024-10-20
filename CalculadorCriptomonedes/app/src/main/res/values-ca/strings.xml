@@ -14,5 +14,10 @@
     <string name="cv_positive_btn">Acceptar</string>
     <string name="cv_bad_answer">Escriu un valor vàlid</string>
     <string name="sel_crip_qstn">Amb quina criptomoneda treballaràs?</string>
-
+    <string name="new_btcn">Nova criptomoneda</string>
+    <string name="new_btcn_name">Nom de la nova criptomoneda:</string>
+    <string name="new_btcn_value">Valor de la nova criptomoneda:</string>
+    <string name="err_name_used">Aquest nom ja està en ús</string>
+    <string name="err_name_len">Aquest nom és molt curt</string>
+    <string name="err_inv_num">Escriu un número vàlid</string>
 </resources>

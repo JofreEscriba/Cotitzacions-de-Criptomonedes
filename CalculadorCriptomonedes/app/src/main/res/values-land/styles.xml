@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="numButtons" parent="TextAppearance.AppCompat">
+        <item name="android:layout_margin">5dp</item>
+
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#474747</item>
+
+    </style>
+
+    <style name="actionButtons" parent="TextAppearance.AppCompat">
+        <item name="android:layout_margin">5dp</item>
+
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#E4B300</item>
+
+    </style>
+
+    <style name="moveButtons" parent="TextAppearance.AppCompat">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#E47D00</item>
+
+    </style>
+
+    <style name="result" parent="TextAppearance.AppCompat">
+
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:backgroundTint">#000000</item>
+
+    </style>
+
+    <style name="appBackground" parent="TextAppearance.AppCompat">
+
+        <item name="android:background">#000000</item>
+
+    </style>
+</resources>

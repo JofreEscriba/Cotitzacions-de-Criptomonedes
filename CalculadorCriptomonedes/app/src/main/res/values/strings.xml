@@ -14,5 +14,11 @@
     <string name="cv_positive_btn">Done</string>
     <string name="cv_bad_answer">Write a valid value</string>
     <string name="sel_crip_qstn">With which of this cryprocurrencies will you work with?</string>
+    <string name="new_btcn">New cryptocurrency</string>
+    <string name="new_btcn_name">New cryptocurrency name:</string>
+    <string name="new_btcn_value">New cryptocurrency value:</string>
+    <string name="err_name_used">This name is already in use</string>
+    <string name="err_name_len">This name is too short</string>
+    <string name="err_inv_num">Write a valid number</string>
 
 </resources>

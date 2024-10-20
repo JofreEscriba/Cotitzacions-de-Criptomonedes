@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.calculadorcriptomonedes"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.calculadorcriptomonedes"
-        minSdk = 27
-        targetSdk = 34
+        minSdk = 30
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
