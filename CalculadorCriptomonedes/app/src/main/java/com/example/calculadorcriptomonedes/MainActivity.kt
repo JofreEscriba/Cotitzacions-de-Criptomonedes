@@ -1,5 +1,6 @@
 package com.example.calculadorcriptomonedes
 
+import android.graphics.ColorSpace.Rgb
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -13,6 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 import java.util.Arrays
 import kotlin.Exception
 import kotlin.reflect.typeOf
+import java.math.BigDecimal
+import java.math.RoundingMode
+import android.widget.LinearLayout
+import android.text.InputType
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
     private var posicioActual=0;
@@ -72,7 +77,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnEsquerra = findViewById(R.id.btnEsq)
         btnSelect = findViewById(R.id.selector)
         arrayNomCriptos.add("Bitcoin")
-        arrayNomCriptos.add("Etherum",)
+        arrayNomCriptos.add("Etherum")
         arrayNomCriptos.add("Tether")
         arrayNomCriptos.add("XRP")
         arrayNomCriptos.add(resources.getString(R.string.new_btcn))
@@ -118,9 +123,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         btnDel.setOnClickListener(){
             eliminarValor()
         }
-        btnCV.setOnClickListener(){
-            afegirValor(",")
-        }
         btnDreta.setOnClickListener(){
             moureCursor(true)
         }
@@ -141,54 +143,72 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     fun afegirValor(valor: String){
         var textActual: String = textIntroduit
-        val llarg: Int = textIntroduit.length
-
+        if(textActual=="0"){
+            textActual=""
+        }
         if(valor != ","){
             if(!comaIntroduida) {
-                textActual=calcularPosicioActual(llarg,valor)
+
+                textActual=calcularPosicioActual(valor)
 
             }else{
                 if(numDecimals<2){
                     if(numDecimals>=posicioActual) {
                         numDecimals++
-                        textActual=calcularPosicioActual(llarg,valor)
+
+
                     }
+                    textActual=calcularPosicioActual(valor)
                 }else{
                     if(posicioActual>numDecimals)  {
-                        textActual = calcularPosicioActual(llarg, valor)
+                        textActual = calcularPosicioActual( valor)
+                    }else{
+                        textActual=calcularPosicioActual("")
                     }
                 }
             }
         }else{
             if(!comaIntroduida && posicioActual<=2){
                 comaIntroduida=true
-                textActual=calcularPosicioActual(llarg,valor)
+                textActual=calcularPosicioActual(valor)
                 numDecimals=posicioActual
             }
         }
 
         txtvIntroduit.text=textActual
         textIntroduit=textActual
+
         modificarResultat()
     }
 
-    fun calcularPosicioActual(llarg: Int, valor: String): String {
+    fun calcularPosicioActual( valor: String): String {
         var nouNum: String=""
-        for(i in 0 until llarg){
-            if(i!=llarg-1-posicioActual){
-                nouNum+= textIntroduit[i]
-            }else{
-                nouNum+= textIntroduit[i]
-                nouNum+=valor
-            }
-        }
-        if(llarg==0){
+
+        if(textIntroduit.equals("")){
             if(valor.equals(",")){
                 nouNum="0,"
             }else{
                 nouNum=valor
             }
+        }else{
+            textIntroduit=textIntroduit.replace("|","")
+            for(i in 0 until textIntroduit.length){
+                if(i!=textIntroduit.length-1-posicioActual && posicioActual-textIntroduit.length!=i ){
+                    nouNum+= textIntroduit[i]
+                }else{
+                    if(posicioActual==textIntroduit.length){
+                        nouNum += valor + "|"
+                        nouNum += textIntroduit[i]
+                    }else {
+                        nouNum += textIntroduit[i]
+                        nouNum += valor + "|"
+                    }
+                }
+            }
         }
+
+
+
         return nouNum
     }
 
@@ -198,14 +218,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         numDecimals=0
         comaIntroduida=false
         posicioActual=0
-        modificarResultat()
+        if(bitCoinActual!=-1) {
+            txtvResultat.text = "0"
+        }
     }
 
     fun eliminarValor(){
         var llarg = textIntroduit.length
         var nouNum="";
         for(i in 0 until llarg){
-            if(i!=llarg-1-posicioActual){
+            if(i!=llarg-2-posicioActual){
                 nouNum+=textIntroduit.get(i)
             }else{
                 if(comaIntroduida){
@@ -224,7 +246,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             txtvIntroduit.text=nouNum
             textIntroduit=nouNum
         }
+
         modificarResultat()
+
     }
 
     fun moureCursor(endavant: Boolean){
@@ -233,16 +257,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 posicioActual--
             }
         }else{
-            if(posicioActual<textIntroduit.length){
+            if(posicioActual<=textIntroduit.length){
                 posicioActual++
+
             }
         }
+        afegirValor("")
+
     }
 
     fun canviarValor(): Boolean{
         var valorCanviat=false
         if(bitCoinActual!=-1){
-            var valCrip: EditText = EditText(this)
+            var valCrip: EditText = EditText(this).apply{
+                inputType= InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+
+            }
             var nouValorStr: String
 
             MaterialAlertDialogBuilder(this)
@@ -254,21 +284,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 .setPositiveButton(resources.getString(R.string.cv_positive_btn)) { dialog, which ->
                     try {
                         nouValorStr=valCrip.text.toString().replace(",",".")
+                        nouValorStr=nouValorStr.replace("|","")
                         valorsCriptos.set(bitCoinActual,nouValorStr)
                         criptoInicialitzada[bitCoinActual]=false.toString()
                         //Actualtzar el valor
                         modificarResultat()
                         valorCanviat=true
                     }catch (error: Exception){
-                        (this as MainActivity).supportActionBar?.setTitle(resources.getString(R.string.cv_bad_answer))
+                        alertaErr(resources.getString(R.string.cv_bad_answer))
                     }
                 }
                 .show()
         }else{
-            MaterialAlertDialogBuilder(this as MainActivity)
-                .setTitle(resources.getString(R.string.cv_no_cripto_sel))
-                .show()
+            alertaErr(resources.getString(R.string.cv_no_cripto_sel))
+
         }
+
         return valorCanviat
     }
 
@@ -301,9 +332,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     fun modificarResultat(){
         var strVal: String
         if(bitCoinActual!=-1){
-            //strVal=textIntroduit.replace("|","")
-            strVal=(valorsCriptos.get(bitCoinActual).toDouble()*textIntroduit.replace(",",".").toDouble()).toString()
-            if(strVal==""){
+            if(textIntroduit==""){
+                strVal=textIntroduit.replace("|","")
+                strVal=BigDecimal(valorsCriptos.get(bitCoinActual).toDouble()*strVal.replace(",",".").toDouble()).setScale(5, RoundingMode.HALF_EVEN).toString()
+            }else{
+                strVal="0"
+            }
+
+            if(strVal=="0"){
                 txtvResultat.text = "0"
             }else {
                 txtvResultat.text = strVal.replace(".", ",")
@@ -342,7 +378,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     fun setValue(nom: String): Boolean{
-        var valCrip: EditText = EditText(this)
+        var valCrip: EditText = EditText(this).apply {
+            inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
+        }
         var nouValorStr: String
         var bool: Boolean = false
         var valor: Double
@@ -370,9 +408,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     fun alertaErr(titol: String){
-        MaterialAlertDialogBuilder(this)
-            .setTitle(titol)
-            .show()
+
+        val parentLayout = findViewById<View>(android.R.id.content)
+
+        val snack = Snackbar.make(parentLayout, titol, Snackbar.LENGTH_LONG)
+        snack.setBackgroundTint(getResources().getColor(R.color.red))
+        snack.setTextColor(getResources().getColor(R.color.white))
+
+        snack.show();
     }
 
     fun carregarText(text1: String){
